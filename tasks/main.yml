@@ -1,0 +1,8 @@
+---
+# tasks file for wiredobjects.epel
+
+- name: Ensure EPEL GPG key is present
+  rpm_key: key="{{ epel_repo_gpg_key_url }}" state=present
+
+- name: Ensure EPEL repo is present
+  package: name="{{ epel_repo_pkg_url }}" state=present
