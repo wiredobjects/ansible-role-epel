@@ -4,5 +4,34 @@
 - name: Ensure EPEL GPG key is present
   rpm_key: key="{{ epel_repo_gpg_key_url }}" state=present
 
-- name: Ensure EPEL repo is present
-  package: name="{{ epel_repo_pkg_url }}" state=present
+- name: Ensure yum repository epel is present
+  yum_repository:
+    name: epel
+    description: "Extra Packages for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch"
+    baseurl: "http://download.fedoraproject.org/pub/epel/{{ ansible_distribution_major_version }}/$basearch"
+    metalink: "https://mirrors.fedoraproject.org/metalink?repo=epel-{{ ansible_distribution_major_version }}&arch=$basearch"
+    failovermethod: priority
+    enabled: "{{ epel_repository_epel_enabled }}"
+    gpgcheck: yes
+  when: epel_repository_epel
+
+- name: Ensure yum repository epel-debuginfo is present
+  yum_repository:
+    name: epel-debuginfo
+    description: "Extra Packages for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch - Debug"
+    metalink: "https://mirrors.fedoraproject.org/metalink?repo=epel-debug-{{ ansible_distribution_major_version }}&arch=$basearch"
+    failovermethod: priority
+    enabled: "{{ epel_repository_debug_enabled }}"
+    gpgcheck: yes
+  when: epel_repository_debug
+
+- name: Ensure yum repository epel-source is present
+  yum_repository:
+    name: epel-source
+    description: "Extra Packages for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch - Source"
+    metalink: "https://mirrors.fedoraproject.org/metalink?repo=epel-source-{{ ansible_distribution_major_version }}&arch=$basearch"
+    failovermethod: priority
+    enabled: "{{ epel_repository_source_enabled }}" 
+    gpgcheck: yes
+  when: epel_repository_source
+

@@ -2,4 +2,13 @@
 # defaults file for wiredobjects.epel
 
 epel_repo_gpg_key_url: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
-epel_repo_pkg_url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+
+epel_repository_epel: yes
+epel_repository_epel_enabled: yes
+
+epel_repository_debug: no
+epel_repository_debug_enabled: no
+
+epel_repository_source: no
+epel_repository_source_enabled: no
+
